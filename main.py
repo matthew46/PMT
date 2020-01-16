@@ -4,7 +4,7 @@
 #    MISO    PIN 2
 #    MOSI    PIN 15
 #    CLK     PIN 14
-#    CS      PIN 13
+#    CS      PIN 13 
 
 
 import machine
@@ -25,7 +25,8 @@ GPS_Data = {
 
 def main():
     SD_Card_init()       # Initialize SD Card using SPI Peripheral
-   # SD_Card_UNIT_TEST()  # Test SD Card
+    SD_Card_UNIT_TEST()  # Test SD Card
+    uos.umount("/sdcard")# Unmount SD Card
 
 
 # Unit Test for SD Card using Mock Data
@@ -79,8 +80,6 @@ def SD_Card_UNIT_TEST():
     f.close()
 
     print(open('/sdcard/testfile.bin').read())       # Read File
-
-    uos.umount("/sdcard")                         # Unmount SD Card
     print("File written")
 
  # Writes GPS Data Header to Log File
