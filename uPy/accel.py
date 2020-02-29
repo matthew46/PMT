@@ -2,6 +2,7 @@
 # PINOUT:
 #           SCL -> pin 10
 #           SDA -> pin 9
+#           INT1-> pin 35
 
 from machine import Pin, I2C
 import machine
@@ -20,7 +21,7 @@ def main():
     global i2c, slave_addr, motion
 
     i2c = init_i2c_accel()     # initialize i2c communication for Accelerometer
-    pin_INT1 = Pin(14, mode = Pin.IN) # Create an input pin on pin #18 for reading Interrupt
+    pin_INT1 = Pin(35, mode = Pin.IN) # Create an input pin on pin #18 for reading Interrupt
     esp32.wake_on_ext0(pin = pin_INT1, level = esp32.WAKEUP_ANY_HIGH)
     # pin_INT1.irq(trigger=Pin.IRQ_RISING, handler=handle_accel_interrupt) # Attach an interrupt to the pin by calling the irq() method
 

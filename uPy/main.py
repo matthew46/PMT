@@ -68,6 +68,7 @@ unsentLogger.addHandler(logging.FileHandler(unsent))
 # Accelerometer PINOUT:
 #   SCL -> pin 10
 #   SDA -> pin 9
+#   INT1-> pin 35
 
 # instantiate GPS class
 gps = GPS()
