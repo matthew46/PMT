@@ -30,18 +30,31 @@ def splash_breaking_a(b_html):
     print(a)
     return a
 
-def station_connected(station: WLAN, wdt: WDT, wifiLogger: Logger):
+def station_connected(station: WLAN, host: String, wdt: WDT, wifiLogger: Logger):
     #TODO: remove print
     print("Connected [Testing Access]")
     wifiLogger.info("Connected [Testing Access]")
 
+
+
     # test DNS -> GET Request and Handles Redirection
+<<<<<<< HEAD
     [status, location] = reqst.test_dns_internet("http://www.google.com")
     # NO SPLASH PAGE
     print("Status = ")
     print(status)
     if status == 200:
+=======
+    [status, location, body] = reqst.test_dns_internet(host)
+    # NO SPLASH PAGE
+    if status == 200 and body == "OK":
+        print("Internet Access [OK]")
+>>>>>>> 0b03c7002a794eefc187cf246904bcd50b77e7f6
         return True
+
+    elif status == 200:
+        # should handle requests prior to redirection
+        return station_connected(station, host, wdt, wifiLogger)
 
     # Redirection
     elif location and 300 <= status <= 309:

@@ -165,7 +165,7 @@ while True:
                     while not station.isconnected():
                         sleep(0.5)
                     if station.isconnected():
-                        station_connected(station, wdt, wifiLogger)
+                        station_connected(station, post_url, wdt, wifiLogger)
                         sleep(1)
                     if station.isconnected():
                         break
