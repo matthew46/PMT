@@ -36,13 +36,15 @@ def station_connected(station: WLAN, wifiLogger: Logger):
     wifiLogger.info("Connected [Testing Access]")
 
     # test DNS -> GET Request and Handles Redirection
-    [status, location] = reqst.test_dns_internet("https://www.example.com")
+    [status, location] = reqst.test_dns_internet("http://www.google.com")
     # NO SPLASH PAGE
+    print("Status = ")
+    print(status)
     if status == 200:
         return True
 
     # Redirection
-    elif location and 300 <= status <= 309:
+    elif location and 300 <= status:
         [status,splashpage] = reqst.request_splash_page(location)
         # splashpage received
         print(splashpage)

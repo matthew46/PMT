@@ -32,17 +32,22 @@ def request_dns_internet(method, url, data=None, json=None, headers={}, stream=N
     if ":" in host:
         host, port = host.split(":", 1)
         port = int(port)
-
+    print("host = ")
+    print(host)
+    print("Port = ")
+    print(port)
     #DNS Resolving Test
     timer = Timer(0)
     timer.init(period=timeout, mode=Timer.ONE_SHOT,callback=handlerTimer)
-
     ai = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)
+    print("Address Info: ")
+    print(ai)
     if ai != []:
         print("DNS Test Lookup [OK]")
         # deinit timer
         timer.deinit()
-
+    else:
+        print("DNS DOES NOT RESOLVE")
     ai = ai[0]
     print(str(ai))
     s = usocket.socket(ai[0], ai[1], ai[2])

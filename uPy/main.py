@@ -97,7 +97,7 @@ posted = False
 #setup core WDT for partial reset (temporary)
 #TODO change out with RWDT in esp32/panic.c
 collect()
-wdt = WDT(timeout=((20+gps_interval)*1000))
+wdt = WDT(timeout=((40+gps_interval)*1000))
 
 while True:
     GPSdata = gps.get_RMCdata(defaultLogger)
