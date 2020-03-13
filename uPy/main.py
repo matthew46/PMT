@@ -165,7 +165,7 @@ while True:
                     while not station.isconnected():
                         sleep(0.5)
                     if station.isconnected():
-                        station_connected(station, wifiLogger)
+                        station_connected(station, wdt, wifiLogger)
                         sleep(1)
                     if station.isconnected():
                         break
@@ -177,4 +177,4 @@ while True:
 
     #reset WDT to avoid Software Reset 0xc
     wdt.feed()
-    print("Fed WDT")
+    print("Fed WDT in FSM")
