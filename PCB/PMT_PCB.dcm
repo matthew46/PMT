@@ -30,4 +30,10 @@ K Voltage Regulator 7A Positive Fixed
 F https://www.analog.com/media/en/technical-documentation/data-sheets/158457a.pdf
 $ENDCMP
 #
+$CMP Screw_Terminals
+D Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
 #End Doc Library

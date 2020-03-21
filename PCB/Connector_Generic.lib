@@ -20,8 +20,8 @@ ENDDEF
 #
 # Conn_01x02
 #
-DEF Conn_01x02 J 0 40 Y N 1 F N
-F0 "J" 0 100 50 H V C CNN
+DEF Conn_01x02 Screw_Terminals 0 40 Y N 1 F N
+F0 "Screw_Terminals" 0 100 50 H V C CNN
 F1 "Conn_01x02" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
@@ -7430,8 +7430,8 @@ ENDDEF
 #
 # Conn_02x20_Counter_Clockwise
 #
-DEF Conn_02x20_Counter_Clockwise ESP32_Pico_D4 0 40 Y N 1 F N
-F0 "ESP32_Pico_D4" 50 1000 50 H V C CNN
+DEF Conn_02x20_Counter_Clockwise J 0 40 Y N 1 F N
+F0 "J" 50 1000 50 H V C CNN
 F1 "Conn_02x20_Counter_Clockwise" 50 -1100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN

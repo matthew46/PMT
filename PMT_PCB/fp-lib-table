@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name PMT_PCB)(type KiCad)(uri ${KIPRJMOD}/PMT_PCB.pretty)(options "")(descr ""))
-)
