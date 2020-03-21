@@ -28,41 +28,29 @@ def breakdown_url(url):
     if ":" in host:
         host, port = host.split(":", 1)
         port = int(port)
-
-    return [proto, dummy, host, path, port]
-
-def handlerTimer(timer):
-    print("DNS_Lookup_Test: Timer Timeout")
-    #Resets the device in a manner similar to pushing the external RESET button.
-    reset()
-
-def request_dns_internet(method, url, data=None, json=None, headers={}, stream=None, timeout=3000):
-    # Get stuff from URL
-    proto, dummy, host, path, port = breakdown_url(url)
-    # No need to check if Host is IP. It's first request we
-    # do after connection
-    # TODO: Uncomment if we decide it's needed
-    # init harware timer
-    # timer = Timer(0)
-    # TODO: Uncomment this for solution
-    #timer.init(period=3000, mode=Timer.ONE_SHOT,callback=handlerTimer)
+    print("host = ")
+    print(host)
+    print("Port = ")
+    print(port)
+    #DNS Resolving Test
+    timer = Timer(0)
+    timer.init(period=timeout, mode=Timer.ONE_SHOT,callback=handlerTimer)
     ai = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)
-    #TODO: Uncomment this for solution
-    #timer.deinit()
+    print("Address Info: ")
+    print(ai)
     if ai != []:
-        print(str(ai))
-        print("DNS Lookup [OK]")
+        print("DNS Test Lookup [OK]")
+        # deinit timer
+        timer.deinit()
     else:
-        print("DNS Lookup [Failed]")
-        return [584,None,None]
-
+        print("DNS DOES NOT RESOLVE")
     ai = ai[0]
     s = usocket.socket(ai[0], ai[1], ai[2])
     try:
         s.connect(ai[-1])
         if proto == "https:":
             s = ussl.wrap_socket(s, server_hostname=host)
-        s.write(b"%s / HTTP/1.0\r\n" % (method))
+        s.write(b"%s / HTTP/1.0\r\n" % (method)
         if not "Host" in headers:
             s.write(b"Host: %s\r\n" % host)
         # Iterate over keys to avoid tuple alloc
@@ -117,7 +105,7 @@ def request_dns_internet(method, url, data=None, json=None, headers={}, stream=N
     s.close()
     del s
     gc.collect()
-    return [status,None,body.decode("utf-8")]
+    return [status,None,s.read()]
 
 def splash_breaking_a(b_html):
     # read all bytes from socket

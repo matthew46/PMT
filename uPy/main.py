@@ -102,8 +102,7 @@ posted = False
 #setup core WDT for partial reset (temporary)
 #TODO change out with RWDT in esp32/panic.c
 collect()
-# wdt = WDT(timeout=((5+gps_interval)*1000))
-gdt = GDT(5+gps_interval, station)
+wdt = WDT(timeout=((40+gps_interval)*1000))
 
 while True:
     [GPSdata, speed] = gps.get_RMCdata(defaultLogger)
@@ -172,7 +171,7 @@ while True:
                     while not station.isconnected():
                         sleep(0.5)
                     if station.isconnected():
-                        station_connected(station, post_url, gdt, wifiLogger)
+                        station_connected(station, post_url, wdt, wifiLogger)
                         sleep(1)
                     if station.isconnected():
                         break
@@ -183,5 +182,5 @@ while True:
     sleep(gps_interval)
 
     #reset WDT to avoid Software Reset 0xc
-    gdt.feed()
-    print("Fed GDT in FSM")
+    wdt.feed()
+    print("Fed WDT in FSM")

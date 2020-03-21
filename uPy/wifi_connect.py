@@ -12,8 +12,7 @@
 
 from network import WLAN
 from usocket import getaddrinfo
-from machine import Timer, reset
-from gdt import GDT
+from machine import Timer, reset, WDT
 import logging
 import reqst
 
@@ -31,7 +30,7 @@ def splash_breaking_a(b_html):
     print(a)
     return a
 
-def station_connected(station: WLAN, host: String, gdt: GDT, wifiLogger: Logger):
+def station_connected(station: WLAN, host: String, wdt: WDT, wifiLogger: Logger):
     #TODO: remove print
     print("Connected [Testing Access]")
     wifiLogger.info("Connected [Testing Access]")
@@ -48,21 +47,28 @@ def station_connected(station: WLAN, host: String, gdt: GDT, wifiLogger: Logger)
     # NO SPLASH PAGE
     if status == 200 and body == "OK":
         print("Internet Access [OK]")
+
+
+    # test DNS -> GET Request and Handles Redirection
+    [status, location, body] = reqst.test_dns_internet(host)
+    # NO SPLASH PAGE
+    if status == 200 and body == "OK":
+        print("Internet Access [OK]")
         return True
 
     elif status == 200:
         # should handle requests prior to redirection
-        return station_connected(station, host, gdt, wifiLogger)
+        return station_connected(station, host, wdt, wifiLogger)
 
     # Redirection
     elif location and 300 <= status <= 309:
-        gdt.feed()
+        wdt.feed()
         print("Fed WDT before requesting splash page")
 
-        [status,splashpage] = reqst.get_splash_page(location)
+        [status,splashpage] = reqst.request_splash_page(location)
         # splashpage received
 
-        gdt.feed()
+        wdt.feed()
         print("Fed WDT after splash page received")
 
         print(splashpage)
